@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -6,37 +6,16 @@ import { Router } from '@angular/router';
   selector: 'app-splash',
   standalone: true,
   imports: [CommonModule],
+  styleUrl: './splash.scss',
   templateUrl: './splash.html',
-  styleUrls: ['./splash.scss']
 })
-export class SplashComponent implements OnInit, OnDestroy {
-  progress = 0;
-  showToast = true;
-  private intervalId: any;
+export class SplashComponent implements OnInit {
+  step: 1 | 2 = 1;
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-
-    this.intervalId = setInterval(() => {
-      this.progress += 2;
-
-      if (this.progress >= 100) {
-        clearInterval(this.intervalId);
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 300);
-      }
-    }, 30);
-  }
-
-  ngOnDestroy(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-  }
-
-  closeToast(): void {
-    this.showToast = false;
+  ngOnInit() {
+    setTimeout(() => (this.step = 2), 1200);
+    setTimeout(() => this.router.navigate(['/login']), 2700);
   }
 }

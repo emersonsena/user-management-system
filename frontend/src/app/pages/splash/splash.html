@@ -1,23 +1,8 @@
-<!-- Toast de Sucesso Flutuante (Canto Superior Direito) -->
-<div *ngIf="showToast" class="toast-success">
-    <div class="toast-content">
-        <span class="check-icon">✓</span>
-        <span class="message">Usuário logado com sucesso!</span>
-    </div>
-    <button type="button" class="close-btn" (click)="closeToast()">✕</button>
-</div>
+<!-- splash.html -->
+<div class="splash" [class.splash--step2]="step === 2">
+    <div class="splash-content" *ngIf="step === 1"></div>
 
-<!-- Container Central da Splash Screen -->
-<div class="splash-container">
-    <div class="splash-content">
-        <!-- Marca WenLock -->
-        <h1 class="logo">
-            <span class="brand-blue">Wen</span><span class="brand-white">Lock</span><span class="brand-dot">.</span>
-        </h1>
-
-        <!-- Barra de Progresso com contorno -->
-        <div class="progress-track">
-            <div class="progress-fill" [style.width.%]="progress"></div>
-        </div>
+    <div class="splash-content" *ngIf="step === 2">
+        <img src="assets/logo-wenlock.svg" alt="WenLock" />
     </div>
 </div>

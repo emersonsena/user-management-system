@@ -38,21 +38,21 @@ export class LoginComponent {
     }
 
     const { username, password } = this.loginForm.value;
-    const inputVal = username.trim();
+    const inputVal = username.trim() ? username.trim() : '';
 
     // Verifica se o valor inserido contém '@' (e-mail) ou se é uma matrícula
     const isEmail = inputVal.includes('@');
 
-    // Monta o payload conforme a DTO do NestJS espera
-    const payload = {
-      ...(isEmail ? { email: inputVal } : { registration: inputVal }),
-      password: password
-    };
+    // Monta o payload 
+    const payload = isEmail
+      ? { email: inputVal.toLowerCase(), password }
+      : { registration: inputVal, password };
+
 
     this.authService.login(payload).subscribe({
       next: () => {
         this.errorMessage = null;
-        this.router.navigate(['/splash']);
+        this.router.navigate(['/loading']);
       },
       error: (err) => {
         console.error('Erro de autenticação:', err);

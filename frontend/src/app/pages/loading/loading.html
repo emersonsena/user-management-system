@@ -1,0 +1,17 @@
+<div class="loading-screen">
+    <div class="toast toast--success" [class.toast--closing]="toastClosing" *ngIf="showToast">
+        <span class="toast__icon">✔</span>
+        <span class="toast__text">Usuário logado com sucesso!</span>
+        <button class="toast__close" (click)="closeToast()" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="loading-content">
+        <div class="logo">
+            <img src="images/img_wenlock_loading.svg" alt="Imagem wenlock">
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-bar__fill"></div>
+        </div>
+    </div>
+</div>

@@ -20,11 +20,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/forgot-password/forgot-password').then(m => m.ForgotPasswordComponent)
     },
 
-    // 3. Splash / Loading Pós-Login
+    // 3. Tela de Loading Pós-Login
     {
         path: 'loading',
         canActivate: [authGuard],
-        loadComponent: () => import('./pages/splash/splash').then(m => m.SplashComponent)
+        loadComponent: () => import('./pages/loading/loading').then(m => m.LoadingComponent)
     },
 
     // 4. Tela Home (Adicionada)

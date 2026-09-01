@@ -3,13 +3,13 @@ import { ApiPropertyOptional, ApiProperty } from '@nestjs/swagger';
 
 export class LoginDto {
     @ApiPropertyOptional({ example: '1001', description: 'Matrícula do usuário' })
-    @ValidateIf((o) => !o.email || o.matricula !== undefined)
+    @ValidateIf((o) => !o.email || o.registration !== undefined)
     @IsNotEmpty({ message: 'Matrícula não pode ser vazia' })
     @IsString({ message: 'A matrícula deve ser texto (string)' })
-    matricula?: string;
+    registration?: string;
 
     @ApiPropertyOptional({ example: 'usuario@wenlock.com', description: 'E-mail do usuário' })
-    @ValidateIf((o) => !o.matricula || o.email !== undefined)
+    @ValidateIf((o) => !o.registration || o.email !== undefined)
     @IsNotEmpty({ message: 'E-mail não pode ser vazio' })
     @IsEmail({}, { message: 'Formato de e-mail inválido' })
     email?: string;

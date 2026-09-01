@@ -1,89 +1,9 @@
-.splash-container {
+// splash.scss
+.splash {
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100vw;
-    height: 100vh;
     background-color: var(--unnamed-color-0d1931);
-    overflow: hidden;
-}
-
-.splash-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2.5rem;
-
-    .logo {
-        font-size: var(--unnamed-font-size-64);
-        font-weight: var(--unnamed-font-weight-bold);
-        margin: 0;
-
-        .brand-blue {
-            color: var(--unnamed-color-0290a4);
-        }
-
-        .brand-white {
-            color: var(--full-branco-ffffff);
-        }
-
-        .brand-dot {
-            color: var(--unnamed-color-00aac1);
-        }
-    }
-}
-
-/* Track e barra de carregamento */
-.progress-track {
-    width: 320px;
-    height: 24px;
-    border: 1px solid var(--unnamed-color-00aac1);
-    border-radius: 6px;
-    padding: 3px;
-    box-sizing: border-box;
-    background-color: transparent;
-
-    .progress-fill {
-        height: 100%;
-        background-color: var(--unnamed-color-00aac1);
-        border-radius: 3px;
-        transition: width 0.1s linear;
-    }
-}
-
-/* Toast de Sucesso (Verde Oficial) */
-.toast-success {
-    position: fixed;
-    top: 24px;
-    right: 24px;
-    background-color: var(--alertas-green-light-00c857);
-    color: var(--full-branco-ffffff);
-    padding: 0.85rem 1.25rem;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
-    z-index: 9999;
-
-    .toast-content {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        font-size: var(--unnamed-font-size-14);
-        font-weight: var(--unnamed-font-weight-bold);
-
-        .check-icon {
-            font-size: 1.1rem;
-        }
-    }
-
-    .close-btn {
-        background: none;
-        border: none;
-        color: var(--full-branco-ffffff);
-        font-size: 1.1rem;
-        cursor: pointer;
-    }
+    transition: background-color 0.3s ease;
 }

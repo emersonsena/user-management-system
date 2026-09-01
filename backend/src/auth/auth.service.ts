@@ -12,14 +12,14 @@ export class AuthService {
     ) { }
 
     async login(loginDto: LoginDto) {
-        const { matricula, email, password } = loginDto;
+        const { registration, email, password } = loginDto;
 
-        if (!matricula && !email) {
+        if (!registration && !email) {
             throw new BadRequestException('Matrícula ou e-mail é obrigatório');
         }
 
         // Busca o usuário baseado no parâmetro informado
-        const user = await this.usersService.findByMatriculaOrEmail(matricula, email);
+        const user = await this.usersService.findByMatriculaOrEmail(registration, email);
 
         if (!user) {
             throw new UnauthorizedException('Credenciais inválidas');
@@ -30,7 +30,6 @@ export class AuthService {
         if (!isPasswordValid) {
             throw new UnauthorizedException('Credenciais inválidas');
         }
-
         const token = this.generateToken(user);
 
         return {
