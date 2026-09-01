@@ -1,0 +1,266 @@
+/* Importação da Fonte Oficial do Design System */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* Colors */
+    --hover-00606d: #00606D;
+    --unnamed-color-0290a4: #0290A4;
+    --unnamed-color-0d1931: #0D1931;
+    --unnamed-color-00aac1: #00AAC1;
+    --unnamed-color-f0f0f0: #F0F0F0;
+    --unnamed-color-b00020: #B00020;
+    --pastel-aacbc4: #AACBC4;
+    --alertas-orange-light-ff7700: #FF7700;
+    --alertas-yellow-light-ffcc00: #FFCC00;
+    --alertas-green-light-00c857: #00C857;
+    --alertas-red-ligh-ff4b4a: #FF4B4A;
+    --full-branco-ffffff: #FFFFFF;
+    --cinza-6f7d7d: #6F7D7D;
+    --verde-black-menu-lateral-021b1a: #021B1A;
+    --verde-escuro-s1-032221: #032221;
+    --verde-s1-08644e: #08644E;
+    --verde-branco-f0fffc: #F0FFFC;
+    --verde-escuro-3-0b2b25: #0B2B25;
+    --verde-escuro-2-para-texto-titulo-0a453a: #0A453A;
+    --verde-escuro-1-cor-do-sistema-17876d: #17876D;
+    --verde-fe-00e081: #00E081;
+    --verde-fc-02bc67: #02BC67;
+
+    /* Font/text values */
+    --unnamed-font-family-manrope: 'Manrope', sans-serif;
+    --unnamed-font-style-normal: normal;
+    --unnamed-font-weight-300: 300;
+    --unnamed-font-weight-600: 600;
+    --unnamed-font-weight-bold: 700;
+    --unnamed-font-weight-medium: 500;
+    --unnamed-font-weight-normal: 400;
+
+    --unnamed-font-size-10: 10px;
+    --unnamed-font-size-12: 12px;
+    --unnamed-font-size-14: 14px;
+    --unnamed-font-size-16: 16px;
+    --unnamed-font-size-18: 18px;
+    --unnamed-font-size-24: 24px;
+    --unnamed-font-size-26: 26px;
+    --unnamed-font-size-38: 38px;
+    --unnamed-font-size-44: 44px;
+    --unnamed-font-size-64: 64px;
+
+    --unnamed-character-spacing-0: 0px;
+    --unnamed-line-spacing-14: 14px;
+    --unnamed-line-spacing-17: 17px;
+    --unnamed-line-spacing-19: 19px;
+    --unnamed-line-spacing-22: 22px;
+    --unnamed-line-spacing-24: 24px;
+    --unnamed-line-spacing-33: 33px;
+    --unnamed-line-spacing-36: 36px;
+    --unnamed-line-spacing-52: 52px;
+    --unnamed-line-spacing-60: 60px;
+    --unnamed-line-spacing-87: 87px;
+}
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: var(--unnamed-font-family-manrope);
+    background-color: var(--unnamed-color-0d1931);
+}
+
+/* Typography Classes (Exportadas do Adobe XD) */
+.manrope-semibold-10pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-10);
+    line-height: var(--unnamed-line-spacing-14);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--full-branco-ffffff);
+}
+
+.legenda-2-manrope-10pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-medium);
+    font-size: var(--unnamed-font-size-10);
+    line-height: var(--unnamed-line-spacing-14);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.legenda-1-manrope-12pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-normal);
+    font-size: var(--unnamed-font-size-12);
+    line-height: var(--unnamed-line-spacing-17);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b4-light-manrope-12pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-300);
+    font-size: var(--unnamed-font-size-12);
+    line-height: var(--unnamed-line-spacing-17);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b4-semibold-manrope-12pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-600);
+    font-size: var(--unnamed-font-size-12);
+    line-height: var(--unnamed-line-spacing-17);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b4-bold-manrope-12pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-12);
+    line-height: var(--unnamed-line-spacing-17);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b4-manrope-12pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-medium);
+    font-size: var(--unnamed-font-size-12);
+    line-height: var(--unnamed-line-spacing-17);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b3-regular-manrope-14pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-normal);
+    font-size: var(--unnamed-font-size-14);
+    line-height: var(--unnamed-line-spacing-19);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b3-bold-manrope-14pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-14);
+    line-height: var(--unnamed-line-spacing-19);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b3-manrope-14pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-medium);
+    font-size: var(--unnamed-font-size-14);
+    line-height: var(--unnamed-line-spacing-19);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b2-bold-manrope-16pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-16);
+    line-height: var(--unnamed-line-spacing-22);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b2-manrope-16pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-medium);
+    font-size: var(--unnamed-font-size-16);
+    line-height: var(--unnamed-line-spacing-22);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b1-bold-manrope-18pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-18);
+    line-height: var(--unnamed-line-spacing-24);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.b1-manrope-18pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-medium);
+    font-size: var(--unnamed-font-size-18);
+    line-height: var(--unnamed-line-spacing-24);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.h5-manrope-24pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-24);
+    line-height: var(--unnamed-line-spacing-33);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.h4-manrope-26pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-26);
+    line-height: var(--unnamed-line-spacing-36);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.h3-manrope-38pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-38);
+    line-height: var(--unnamed-line-spacing-52);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.h2-manrope-44pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-44);
+    line-height: var(--unnamed-line-spacing-60);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}
+
+.h1-manrope-64pt {
+    font-family: var(--unnamed-font-family-manrope);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-64);
+    line-height: var(--unnamed-line-spacing-87);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--verde-escuro-3-0b2b25);
+}

@@ -1,0 +1,243 @@
+.app-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--unnamed-color-f0f0f0);
+    overflow: hidden;
+}
+
+/* Sidebar / Menu Lateral */
+.sidebar {
+    width: 260px;
+    background-color: var(--unnamed-color-0d1931);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+    box-sizing: border-box;
+
+    .sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        padding: 0 0.5rem;
+
+        .logo {
+            font-size: var(--unnamed-font-size-26);
+            font-weight: var(--unnamed-font-weight-bold);
+            margin: 0;
+
+            .brand-blue {
+                color: var(--unnamed-color-0290a4);
+            }
+
+            .brand-white {
+                color: var(--full-branco-ffffff);
+            }
+
+            .brand-dot {
+                color: var(--unnamed-color-00aac1);
+            }
+        }
+
+        .collapse-btn {
+            background: var(--full-branco-ffffff);
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--unnamed-color-0d1931);
+        }
+    }
+
+    .sidebar-nav {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--full-branco-ffffff);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: var(--unnamed-font-size-14);
+            font-weight: var(--unnamed-font-weight-medium);
+
+            &.active,
+            &:hover {
+                background-color: var(--unnamed-color-0290a4);
+            }
+        }
+
+        .nav-group {
+            margin-top: 0.5rem;
+
+            .nav-group-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.75rem 1rem;
+                color: var(--cinza-6f7d7d);
+                font-size: var(--unnamed-font-size-14);
+                cursor: pointer;
+
+                .header-left {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                }
+
+                .arrow {
+                    transition: transform 0.2s ease;
+
+                    &.open {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+
+            .nav-subitems {
+                display: flex;
+                flex-direction: column;
+                padding-left: 2rem;
+
+                .nav-subitem {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    padding: 0.5rem 1rem;
+                    color: var(--full-branco-ffffff);
+                    text-decoration: none;
+                    font-size: var(--unnamed-font-size-14);
+                    border-radius: 4px;
+
+                    &.active,
+                    &:hover {
+                        color: var(--unnamed-color-00aac1);
+                    }
+                }
+            }
+        }
+    }
+
+    .sidebar-footer {
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+        .copyright {
+            color: var(--full-branco-ffffff);
+            font-size: var(--unnamed-font-size-12);
+            font-weight: var(--unnamed-font-weight-bold);
+            margin: 0;
+        }
+
+        .powered-by {
+            color: var(--cinza-6f7d7d);
+            font-size: var(--unnamed-font-size-10);
+        }
+    }
+}
+
+/* Área de Conteúdo Conteúdo */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
+    .top-header {
+        height: 64px;
+        background-color: var(--full-branco-ffffff);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 2rem;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+
+        .user-menu {
+            cursor: pointer;
+
+            .avatar-circle {
+                width: 40px;
+                height: 40px;
+                background-color: var(--verde-black-menu-lateral-021b1a);
+                color: var(--full-branco-ffffff);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: var(--unnamed-font-weight-bold);
+                font-size: var(--unnamed-font-size-14);
+            }
+        }
+    }
+
+    .page-container {
+        padding: 2rem;
+
+        .page-title {
+            font-size: var(--unnamed-font-size-26);
+            font-weight: var(--unnamed-font-weight-bold);
+            color: var(--verde-escuro-3-0b2b25);
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-card {
+            background-color: var(--full-branco-ffffff);
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.03);
+
+            .greeting {
+                font-size: var(--unnamed-font-size-24);
+                font-weight: var(--unnamed-font-weight-bold);
+                color: var(--verde-escuro-3-0b2b25);
+                margin: 0 0 0.25rem 0;
+            }
+
+            .date-text {
+                font-size: var(--unnamed-font-size-14);
+                color: var(--cinza-6f7d7d);
+                margin-bottom: 2rem;
+            }
+
+            .illustration-wrapper {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 2rem;
+            }
+
+            .welcome-btn-wrapper {
+                display: flex;
+                justify-content: center;
+
+                .btn-welcome-outline {
+                    background-color: transparent;
+                    border: 1px solid var(--verde-escuro-3-0b2b25);
+                    color: var(--verde-escuro-3-0b2b25);
+                    padding: 0.75rem 2.5rem;
+                    border-radius: 6px;
+                    font-size: var(--unnamed-font-size-16);
+                    font-weight: var(--unnamed-font-weight-bold);
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        background-color: var(--verde-escuro-3-0b2b25);
+                        color: var(--full-branco-ffffff);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,61 @@
+services:
+  # 1. Banco de Dados MySQL (Seu serviço existente)
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_crud
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: sua_senha
+      MYSQL_DATABASE: crud_usuarios
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # 2. Backend
+  backend:
+    build: ./backend # Caminho para a pasta onde está o Dockerfile do Backend
+    container_name: backend_crud
+    restart: always
+    ports:
+      - "3000:3000" # Mude "3000" para a porta utilizada pelo seu backend (ex: 8080, 5000)
+    environment:
+      DB_HOST: mysql # O backend se conecta ao MySQL usando o nome do serviço ("mysql")
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: sua_senha
+      DB_NAME: crud_usuarios
+      JWT_SECRET: 1d0df2f66962b9328360e6c0a1ffe4d6f8cb670492ac358f49119b9f17a6bb46
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  # 3. Frontend (Angular)
+  frontend:
+    build: ./frontend # Caminho para a pasta onde está o Dockerfile do Angular
+    container_name: frontend_crud
+    restart: always
+    ports:
+      - "80:80" # Acessível em http://localhost
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
