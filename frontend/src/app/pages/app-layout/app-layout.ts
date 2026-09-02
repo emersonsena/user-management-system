@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../core/services/auth';
 
 @Component({
   selector: 'app-layout',
@@ -11,29 +12,37 @@ import { CommonModule } from '@angular/common';
 })
 export class AppLayoutComponent {
   isSidebarCollapsed = false;
-  isAccessMenuOpen = false;
+  isAccessMenuOpen = true;
   isUserMenuOpen = false;
 
-  userName = ''; // vem do seu AuthService/UserService
+  userName = ''; // vem do AuthService/UserService
   userEmail = '';
   userInitials = '';
+  currentDate = '';
 
-  constructor(private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
-  toggleSidebar() {
-    this.isSidebarCollapsed = !this.isSidebarCollapsed;
-  }
-
-  toggleAccessMenu() {
+  toggleAccessMenu(): void {
     this.isAccessMenuOpen = !this.isAccessMenuOpen;
   }
 
-  closeUserMenu() {
+  toggleSidebar(): void {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+
+  toggleUserMenu(): void {
+    this.isUserMenuOpen = !this.isUserMenuOpen;
+  }
+
+  closeUserMenu(): void {
     this.isUserMenuOpen = false;
   }
 
-  logout() {
-    // sua lógica de logout (limpar token, etc.)
+  logout(): void {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }
