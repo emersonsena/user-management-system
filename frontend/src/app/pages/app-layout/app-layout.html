@@ -1,0 +1,69 @@
+<div class="app-layout">
+    <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
+        <div class="sidebar-header">
+            <h1 class="logo" *ngIf="!isSidebarCollapsed">
+                <span class="brand-blue">Wen</span><span class="brand-white">Lock</span><span class="brand-dot">.</span>
+            </h1>
+            <img src="images/img_wl_menu.svg" alt="WenLock" class="logo-collapsed" *ngIf="isSidebarCollapsed">
+            <button class="collapse-btn" (click)="toggleSidebar()" aria-label="Toggle Sidebar"
+                title="Expandir/Recolher">
+                <span [class.rotated]="!isSidebarCollapsed">‹</span>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a routerLink="/home" routerLinkActive="active" class="nav-item" title="Home">
+                <img src="images/ic_menu_home.svg" alt="Home" class="nav-icon">
+                <span class="nav-label">Home</span>
+            </a>
+
+            <div class="nav-group">
+                <div class="nav-group-header" (click)="toggleAccessMenu()" title="Controle de Acesso">
+                    <div class="header-left">
+                        <img src="images/ic_users_menu.svg" alt="Controle" class="nav-icon">
+                        <span class="nav-label">Controle de Acesso</span>
+                    </div>
+                    <span class="arrow" [class.open]="isAccessMenuOpen">▾</span>
+                </div>
+
+                <div class="nav-subitems" *ngIf="isAccessMenuOpen">
+                    <a routerLink="/users" routerLinkActive="active" class="nav-subitem" title="Usuários">
+                        <img src="images/ic_user_menu.svg" alt="Usuários" class="subnav-icon">
+                        <span class="nav-label">Usuários</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <footer class="sidebar-footer">
+            <p class="copyright">© WenLock</p>
+            <small class="powered-by">Power by Conecthus <span class="version">V 0.0.0</span></small>
+        </footer>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-header">
+            <div class="user-menu-wrapper" (mouseleave)="closeUserMenu()">
+                <div class="user-menu" (mouseenter)="isUserMenuOpen = true">
+                    <div class="avatar-circle">{{ userInitials }}</div>
+                </div>
+
+                <div class="user-dropdown" *ngIf="isUserMenuOpen">
+                    <div class="dropdown-content">
+                        <div class="dropdown-header">
+                            <div class="avatar-circle-large">{{ userInitials }}</div>
+                            <div class="user-info">
+                                <p class="user-name">{{ userName }}</p>
+                                <p class="user-email">{{ userEmail }}</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <button class="logout-btn" (click)="logout()">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <router-outlet></router-outlet>
+    </main>
+</div>

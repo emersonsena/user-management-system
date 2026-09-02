@@ -34,16 +34,17 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/home/home').then(m => m.HomeComponent)
     },
 
-    // 5. Gestão de Usuários (Protegida)
     {
-        path: 'users',
+        path: '',
+        loadComponent: () => import('./pages/app-layout/app-layout').then(m => m.AppLayoutComponent),
         canActivate: [authGuard],
-        loadComponent: () => import('./pages/users/user-list/user-list').then(m => m.UserListComponent)
-    },
-    {
-        path: 'users/new',
-        canActivate: [authGuard],
-        loadComponent: () => import('./pages/users/user-form/user-form').then(m => m.UserFormComponent)
+        children: [
+            { path: 'home', loadComponent: () => import('./pages/home/home').then(m => m.HomeComponent) },
+            { path: 'users', loadComponent: () => import('./pages/users/user-list/user-list').then(m => m.UserListComponent) },
+            { path: 'users/new', loadComponent: () => import('./pages/users/user-form/user-form').then(m => m.UserFormComponent) },
+            { path: 'users/:id/edit', loadComponent: () => import('./pages/users/user-form/user-form').then(m => m.UserFormComponent) },
+            { path: '', redirectTo: 'home', pathMatch: 'full' }
+        ]
     },
 
     { path: '**', redirectTo: '' }
