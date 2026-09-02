@@ -13,8 +13,11 @@ import { AuthService } from '../../core/services/auth';
 export class HomeComponent implements OnInit {
   userName = 'Millena';
   userInitials = 'MS';
+  userEmail = 'milena.santana@energy.org.br';
   currentDate = '22, Novembro 2024';
   isAccessMenuOpen = true;
+  isSidebarCollapsed = false;
+  isUserMenuOpen = false;
 
   constructor(
     private authService: AuthService,
@@ -27,6 +30,18 @@ export class HomeComponent implements OnInit {
 
   toggleAccessMenu(): void {
     this.isAccessMenuOpen = !this.isAccessMenuOpen;
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+
+  toggleUserMenu(): void {
+    this.isUserMenuOpen = !this.isUserMenuOpen;
+  }
+
+  closeUserMenu(): void {
+    this.isUserMenuOpen = false;
   }
 
   logout(): void {
