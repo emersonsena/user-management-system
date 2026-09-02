@@ -20,7 +20,7 @@ export class LoadingComponent implements OnInit, OnDestroy {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.redirectTimer = setTimeout(() => this.router.navigate(['/home']), 1800);
+    this.redirectTimer = setTimeout(() => this.router.navigate(['/app/home']), 1800);
 
     // inicia o fade-out em 2700ms
     this.toastCloseTimer = setTimeout(() => (this.toastClosing = true), 2700);

@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { MysqlExceptionFilter } from './common/filters/mysql-exception.filter';
 
 async function bootstrap() {
   if (!process.env.JWT_SECRET) {
@@ -13,6 +14,8 @@ async function bootstrap() {
   app.enableCors({ origin: ['http://localhost', 'http://localhost:4200'] });
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+
+  app.useGlobalFilters(new MysqlExceptionFilter());
 
   const config = new DocumentBuilder()
     .setTitle('API de Gerenciamento de Usuários')

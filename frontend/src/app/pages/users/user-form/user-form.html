@@ -1,76 +1,111 @@
-<div class="form-container">
-    <header class="form-header">
-        <h2>{{ isEditMode() ? 'Editar Usuário' : 'Novo Usuário' }}</h2>
-        <p>{{ isEditMode() ? 'Altere as informações do usuário abaixo.' : 'Preencha os campos para cadastrar um novo
-            usuário.' }}</p>
-    </header>
+<div class="page-container">
 
-    @if (errorMessage()) {
-    <div class="alert alert-danger">{{ errorMessage() }}</div>
-    }
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        Usuários / {{ isEditMode() ? 'Editar Usuário' : 'Cadastro de Usuário' }}
+    </div>
 
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
-        <!-- Nome -->
-        <div class="form-group">
-            <label for="name">Nome Completo</label>
-            <input id="name" type="text" formControlName="name" placeholder="Digite o nome completo"
-                [class.invalid]="f['name'].touched && f['name'].invalid" />
-            @if (f['name'].touched && f['name'].errors) {
-            <small class="error-text">
-                @if (f['name'].errors['required']) { O nome é obrigatório. }
-                @if (f['name'].errors['pattern']) { O nome deve conter apenas letras. }
-            </small>
-            }
-        </div>
+    <!-- Header -->
+    <h1 class="page-title">
+        <span class="back-icon" routerLink="/app/users">&lt;</span>
+        {{ isEditMode() ? 'Editar Usuário' : 'Cadastro de Usuário' }}
+    </h1>
 
-        <!-- E-mail -->
-        <div class="form-group">
-            <label for="email">E-mail</label>
-            <input id="email" type="email" formControlName="email" placeholder="exemplo@wenlock.com"
-                [class.invalid]="f['email'].touched && f['email'].invalid" />
-            @if (f['email'].touched && f['email'].errors) {
-            <small class="error-text">
-                @if (f['email'].errors['required']) { O e-mail é obrigatório. }
-                @if (f['email'].errors['email']) { Digite um e-mail válido. }
-            </small>
-            }
-        </div>
+    <!-- Exibição de Erro da API -->
+    <div class="alert alert-danger" *ngIf="errorMessage()">
+        {{ errorMessage() }}
+    </div>
 
-        <!-- Matrícula -->
-        <div class="form-group">
-            <label for="registration">Matrícula</label>
-            <input id="registration" type="text" formControlName="registration" placeholder="ex: 1001"
-                [class.invalid]="f['registration'].touched && f['registration'].invalid" />
-            @if (f['registration'].touched && f['registration'].errors) {
-            <small class="error-text">
-                @if (f['registration'].errors['required']) { A matrícula é obrigatória. }
-                @if (f['registration'].errors['pattern']) { A matrícula deve conter apenas números. }
-            </small>
-            }
-        </div>
+    <!-- Formulário -->
+    <div class="form-card">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
-        <!-- Senha -->
-        <div class="form-group">
-            <label for="password">
-                Senha
-                @if (isEditMode()) { <span class="optional">(Deixe em branco para manter a atual)</span> }
-            </label>
-            <input id="password" type="password" formControlName="password" placeholder="••••••••"
-                [class.invalid]="f['password'].touched && f['password'].invalid" />
-            @if (f['password'].touched && f['password'].errors) {
-            <small class="error-text">
-                @if (f['password'].errors['required']) { A senha é obrigatória no cadastro. }
-                @if (f['password'].errors['minlength']) { A senha deve ter no mínimo 6 caracteres. }
-            </small>
-            }
-        </div>
+            <!-- Seção: Dados do Usuário -->
+            <div class="section-divider">
+                <span class="section-title">Dados do Usuário</span>
+                <div class="line"></div>
+            </div>
 
-        <!-- Ações -->
-        <div class="form-actions">
-            <button type="button" class="btn-secondary" routerLink="/users">Cancelar</button>
-            <button type="submit" class="btn-primary" [disabled]="isLoading()">
-                @if (isLoading()) { Salvando... } @else { {{ isEditMode() ? 'Atualizar' : 'Cadastrar' }} }
-            </button>
-        </div>
-    </form>
+            <div class="form-row">
+                <div class="input-group">
+                    <div class="input-wrapper" [class.filled]="!!userForm.get('name')?.value">
+                        <label>Nome Completo</label>
+                        <input type="text" formControlName="name" placeholder="Insira o nome completo*">
+                    </div>
+                    <span class="helper-text">• Máx. 30 Caracteres</span>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper" [class.filled]="!!userForm.get('registration')?.value">
+                        <label>Matrícula</label>
+                        <input type="text" formControlName="registration" placeholder="Insira o Nº da matrícula">
+                    </div>
+                    <span class="helper-text">• Mín. 4 Letras | • Máx. 10 Caracteres</span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group full-width">
+                    <div class="input-wrapper" [class.filled]="!!userForm.get('email')?.value">
+                        <label>E-mail</label>
+                        <input type="email" formControlName="email" placeholder="Insira o E-mail*">
+                    </div>
+                    <span class="helper-text">• Máx. 40 Caracteres</span>
+                </div>
+            </div>
+
+            <!-- Seção: Dados de acesso -->
+            <div class="section-divider mt-4">
+                <span class="section-title">Dados de acesso</span>
+                <div class="line"></div>
+            </div>
+
+            <div class="form-row">
+                <!-- Input de Senha -->
+                <div class="input-group">
+                    <div class="input-wrapper" [class.filled]="!!userForm.get('password')?.value">
+                        <label>Senha</label>
+                        <input [type]="showPassword() ? 'text' : 'password'" formControlName="password"
+                            placeholder="Senha">
+                        <button type="button" class="icon-btn" (click)="togglePasswordVisibility('password')">
+                            👁
+                        </button>
+                    </div>
+                    <span class="helper-text" *ngIf="isEditMode()">• Deixe em branco para manter a senha atual</span>
+                </div>
+
+                <!-- Input de Repetir Senha -->
+                <div class="input-group">
+                    <div class="input-wrapper" [class.filled]="!!userForm.get('confirmPassword')?.value">
+                        <label>Repetir Senha</label>
+                        <input [type]="showConfirmPassword() ? 'text' : 'password'" formControlName="confirmPassword"
+                            placeholder="Repetir Senha">
+                        <button type="button" class="icon-btn" (click)="togglePasswordVisibility('confirmPassword')">
+                            👁
+                        </button>
+                    </div>
+                    <span class="helper-text" style="color: #e74c3c;"
+                        *ngIf="userForm.get('confirmPassword')?.hasError('mismatch') && userForm.get('confirmPassword')?.touched">
+                        As senhas não coincidem.
+                    </span>
+                </div>
+            </div>
+
+            <!-- Ações -->
+            <div class="form-actions">
+                <button type="button" class="btn btn-outline" routerLink="/app/users"
+                    [disabled]="isLoading()">Cancelar</button>
+
+                <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid || isLoading()">
+                    <ng-container *ngIf="!isLoading()">
+                        {{ isEditMode() ? 'Salvar' : 'Cadastrar' }}
+                    </ng-container>
+                    <ng-container *ngIf="isLoading()">
+                        Carregando...
+                    </ng-container>
+                </button>
+            </div>
+
+        </form>
+    </div>
 </div>

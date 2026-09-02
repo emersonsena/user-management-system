@@ -1,13 +1,13 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './../../../core/services/user';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './user-form.html',
   styleUrl: './user-form.scss'
 })
@@ -18,41 +18,69 @@ export class UserFormComponent implements OnInit {
   isLoading = signal<boolean>(false);
   errorMessage = signal<string | null>(null);
 
+  showPassword = signal<boolean>(false);
+  showConfirmPassword = signal<boolean>(false);
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    // Validações alinhadas aos requisitos do teste
+    // 1. Adicionado o campo confirmPassword e a validação do FormGroup
     this.userForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-A-ÿ\s]+$/)]], // Apenas letras e espaços
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-ZÀ-ÿ\s]+$/)]],
       email: ['', [Validators.required, Validators.email]],
-      registration: ['', [Validators.required, Validators.pattern(/^\d+$/)]], // Apenas números (matrícula)
-      password: ['', [Validators.required, Validators.minLength(6)]] // Obrigatório por padrão
-    });
+      registration: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]]
+    }, { validators: this.passwordMatchValidator }); // Validador customizado
   }
 
   ngOnInit(): void {
-    // 1. Verifica se a URL contém o parâmetro ID
     const idParam = this.route.snapshot.paramMap.get('id');
 
     if (idParam) {
       this.isEditMode.set(true);
       this.userId.set(+idParam);
 
-      // Em modo de edição, a senha passa a ser OPCIONAL
+      // Em modo de edição, a senha e a confirmação passam a ser OPCIONAIS
       const passwordControl = this.userForm.get('password');
       passwordControl?.clearValidators();
       passwordControl?.setValidators([Validators.minLength(6)]);
       passwordControl?.updateValueAndValidity();
 
-      // 2. Busca dados do usuário para preencher o formulário
+      const confirmPasswordControl = this.userForm.get('confirmPassword');
+      confirmPasswordControl?.clearValidators();
+      confirmPasswordControl?.updateValueAndValidity();
+
       this.loadUserData(this.userId()!);
     }
   }
 
   get f() { return this.userForm.controls; }
+
+  // 2. Função que valida se as senhas coincidem
+  passwordMatchValidator(g: FormGroup) {
+    const password = g.get('password')?.value;
+    const confirmPassword = g.get('confirmPassword')?.value;
+
+    // Só valida se os dois campos tiverem sido digitados ou se for cadastro
+    if (password !== confirmPassword) {
+      g.get('confirmPassword')?.setErrors({ mismatch: true });
+      return { mismatch: true };
+    } else {
+      // Limpa o erro de mismatch se estiverem iguais
+      const confirmErrors = g.get('confirmPassword')?.errors;
+      if (confirmErrors) {
+        delete confirmErrors['mismatch'];
+        if (Object.keys(confirmErrors).length === 0) {
+          g.get('confirmPassword')?.setErrors(null);
+        }
+      }
+      return null;
+    }
+  }
 
   private loadUserData(id: number): void {
     this.isLoading.set(true);
@@ -72,6 +100,14 @@ export class UserFormComponent implements OnInit {
     });
   }
 
+  togglePasswordVisibility(field: 'password' | 'confirmPassword'): void {
+    if (field === 'password') {
+      this.showPassword.update(value => !value);
+    } else {
+      this.showConfirmPassword.update(value => !value);
+    }
+  }
+
   onSubmit(): void {
     this.errorMessage.set(null);
 
@@ -83,13 +119,15 @@ export class UserFormComponent implements OnInit {
     this.isLoading.set(true);
     const formData = { ...this.userForm.value };
 
+    // 3. Remove o confirmPassword antes de enviar para a API (o backend não precisa dele)
+    delete formData.confirmPassword;
+
     // Se estiver editando e a senha ficou vazia, remove a propriedade do payload
     if (this.isEditMode() && !formData.password) {
       delete formData.password;
     }
 
     if (this.isEditMode()) {
-      // 3. Executa a Atualização (PUT)
       this.userService.updateUser(this.userId()!, formData).subscribe({
         next: () => {
           this.isLoading.set(false);
@@ -101,15 +139,14 @@ export class UserFormComponent implements OnInit {
         }
       });
     } else {
-      // 4. Executa a Criação (POST)
       this.userService.createUser(formData).subscribe({
         next: () => {
           this.isLoading.set(false);
-          this.router.navigate(['/users']);
+          this.router.navigate(['/app/users']);
         },
         error: (err) => {
           this.isLoading.set(false);
-          this.errorMessage.set(err.error?.message || 'Erro ao criar usuário.');
+          this.errorMessage.set(err.error?.message || 'Erro ao processar a requisição.');
         }
       });
     }

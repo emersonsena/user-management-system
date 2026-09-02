@@ -5,6 +5,7 @@ export const routes: Routes = [
     // 1. Splash Inicial
     {
         path: '',
+        pathMatch: 'full',
         loadComponent: () => import('./pages/splash/splash').then(m => m.SplashComponent)
     },
 
@@ -27,15 +28,9 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/loading/loading').then(m => m.LoadingComponent)
     },
 
-    // 4. Tela Home (Adicionada)
+    // 4. Área autenticada com layout (sidebar + header)
     {
-        path: 'home',
-        canActivate: [authGuard],
-        loadComponent: () => import('./pages/home/home').then(m => m.HomeComponent)
-    },
-
-    {
-        path: '',
+        path: 'app',
         loadComponent: () => import('./pages/app-layout/app-layout').then(m => m.AppLayoutComponent),
         canActivate: [authGuard],
         children: [

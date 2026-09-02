@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth';
+import { UserService } from './../../../core/services/user';
 
 interface User {
   id: number;
@@ -24,15 +25,9 @@ export class UserListComponent implements OnInit {
   userInitials: string = '';
   userEmail: string = '';
 
-  // Menu
-  isSidebarCollapsed = false;
-  isAccessMenuOpen = true;
-  isUserMenuOpen = false;
 
   // Usuários
-  users: User[] = [
-    // Dados de exemplo - será substituído por chamada API
-  ];
+  users: User[] = [];
   filteredUsers: User[] = [];
   paginatedUsers: User[] = [];
 
@@ -46,6 +41,7 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private router: Router
   ) { }
 
@@ -73,10 +69,28 @@ export class UserListComponent implements OnInit {
   }
 
   private loadUsers(): void {
-    // TODO: Chamar UserService para buscar usuários da API
-    // Por enquanto usando dados vazios
-    this.users = [];
-    this.applyFiltersAndPagination();
+    // Assumindo que você tenha instanciado: isLoading = signal<boolean>(false);
+    // e errorMessage = signal<string | null>(null); na sua classe
+
+    // this.isLoading.set(true);
+    // this.errorMessage.set(null);
+
+    this.userService.getUsers().subscribe({
+      next: (response: any) => {
+        this.users = response.data || [];
+        this.currentPage = response.meta?.currentPage || 1;
+        this.itemsPerPage = response.meta?.itemsPerPage || 15;
+        this.totalPages = response.meta?.totalPages || 1;
+
+        this.applyFiltersAndPagination();
+        // this.isLoading.set(false);
+      },
+      error: (err) => {
+        //  this.isLoading.set(false);
+        //  this.errorMessage.set('Não foi possível carregar a lista de usuários.');
+        console.error('Falha ao buscar usuários:', err);
+      }
+    });
   }
 
   onSearchChange(): void {
@@ -156,21 +170,19 @@ export class UserListComponent implements OnInit {
   }
 
   openCreateUser(): void {
-    // TODO: Abrir modal ou navegar para página de criar usuário
-    console.log('Abrir criar usuário');
+    this.router.navigate(['/app/users/new']);
   }
 
   editUser(user: User): void {
-    // TODO: Abrir modal ou navegar para página de editar usuário
-    console.log('Editar usuário:', user);
+    this.router.navigate(['/app/users', user.id, 'edit']);
   }
 
   deleteUser(userId: number): void {
     // TODO: Chamar UserService para deletar usuário
     if (confirm('Deseja realmente deletar este usuário?')) {
       console.log('Deletar usuário:', userId);
-      // this.users = this.users.filter(u => u.id !== userId);
-      // this.applyFiltersAndPagination();
+      this.users = this.users.filter(u => u.id !== userId);
+      this.applyFiltersAndPagination();
     }
   }
 

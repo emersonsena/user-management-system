@@ -1,3 +1,15 @@
+.pag-container {
+    padding: 2rem;
+
+    .page-title {
+        font-size: var(--unnamed-font-size-26);
+        font-weight: var(--unnamed-font-weight-bold);
+        color: var(--verde-escuro-3-0b2b25);
+        margin-bottom: 1.5rem;
+    }
+}
+
+
 .users-header {
     display: flex;
     align-items: center;
