@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-layout',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './app-layout.component.html',
-  styleUrl: './app-layout.component.scss'
+  templateUrl: './app-layout.html',
+  styleUrl: './app-layout.scss'
 })
 export class AppLayoutComponent {
   isSidebarCollapsed = false;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth';
 
 interface User {
@@ -14,7 +14,7 @@ interface User {
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, FormsModule],
   templateUrl: './user-list.html',
   styleUrls: ['./user-list.scss']
 })
