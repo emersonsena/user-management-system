@@ -20,6 +20,7 @@ export class UserFormComponent implements OnInit {
 
   showPassword = signal<boolean>(false);
   showConfirmPassword = signal<boolean>(false);
+  isCancelModalOpen = signal<boolean>(false);
 
   constructor(
     private fb: FormBuilder,
@@ -152,5 +153,21 @@ export class UserFormComponent implements OnInit {
         }
       });
     }
+  }
+
+  // Disparado quando o utilizador clica no botão "Cancelar" da página de edição
+  openCancelModal(): void {
+    this.isCancelModalOpen.set(true);
+  }
+
+  // Se clicar em "Não" no modal, apenas fecha o modal e continua na edição
+  onStayOnEdit(): void {
+    this.isCancelModalOpen.set(false);
+  }
+
+  // Se clicar em "Sim" no modal, redireciona para a tela de utilizadores
+  onConfirmCancel(): void {
+    this.isCancelModalOpen.set(false);
+    this.router.navigate(['app/users']);
   }
 }

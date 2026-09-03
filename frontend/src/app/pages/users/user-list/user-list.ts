@@ -120,10 +120,11 @@ export class UserListComponent implements OnInit {
   }
 
   getPageNumbers(): number[] {
+    const total = this.totalPages && this.totalPages > 0 ? this.totalPages : 1;
     const pages: number[] = [];
     const maxPagesToShow = 5;
     let startPage = Math.max(1, this.currentPage - Math.floor(maxPagesToShow / 2));
-    let endPage = Math.min(this.totalPages, startPage + maxPagesToShow - 1);
+    let endPage = Math.min(total, startPage + maxPagesToShow - 1);
 
     if (endPage - startPage < maxPagesToShow - 1) {
       startPage = Math.max(1, endPage - maxPagesToShow + 1);

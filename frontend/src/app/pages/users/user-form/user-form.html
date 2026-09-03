@@ -97,8 +97,8 @@
 
             <!-- Ações -->
             <div class="form-actions">
-                <button type="button" class="btn btn-outline" routerLink="/app/users"
-                    [disabled]="isLoading()">Cancelar</button>
+                <button type="button" class="btn btn-outline" routerLink="/app/users" [disabled]="isLoading()"
+                    (click)="openCancelModal()">Cancelar</button>
 
                 <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid || isLoading()">
                     <ng-container *ngIf="!isLoading()">
@@ -113,3 +113,19 @@
         </form>
     </div>
 </div>
+
+<!-- Modal de Confirmação -->
+@if (isCancelModalOpen()) {
+<div class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-content">
+            <h3>Deseja cancelar?</h3>
+            <p>Os dados inseridos não serão salvos</p>
+            <div class="modal-buttons">
+                <button type="button" class="btn-secondary" (click)="onStayOnEdit()">Não</button>
+                <button type="button" class="btn-primary" (click)="onConfirmCancel()">Sim</button>
+            </div>
+        </div>
+    </div>
+</div>
+}

@@ -319,3 +319,62 @@
         cursor: pointer;
     }
 }
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; // Alinhado à direita como na imagem
+    font-family: inherit;
+    color: #012325; // Cor escura do seu tema
+    font-size: 0.9rem;
+
+    .items-per-page {
+        display: flex;
+        align-items: center;
+        gap: 10px; // Espaçamento entre o label e o select
+
+        label {
+            margin: 0;
+        }
+    }
+}
+
+/* Estilização do Select Customizado */
+.custom-pagination-select {
+    appearance: none;
+    /* Remove o estilo padrão do SO/Browser */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-color: #ffffff;
+    border: 1px solid #ced4da; // Borda cinza neutra
+    border-radius: 4px;
+    padding: 6px 30px 6px 12px; // Padding direito maior para a seta
+    font-size: 0.9rem;
+    color: #012325;
+    cursor: pointer;
+    transition: border-color 0.2s ease-in-out;
+
+    /* Foco */
+    &:focus {
+        outline: none;
+        border-color: #00838F; // Borda verde-petróleo do seu tema ao focar
+        box-shadow: 0 0 0 0.2rem rgba(0, 131, 143, 0.25); // Efeito de brilho leve
+    }
+
+    /* Seta customizada (usando background image) */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23012325' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center; // Posição da seta
+    background-size: 16px 16px; // Tamanho da seta
+
+    /* Em caso de hover */
+    &:hover {
+        border-color: #adb5bd;
+    }
+
+    /* Remove a seta padrão do IE */
+    &::-ms-expand {
+        display: none;
+    }
+}
