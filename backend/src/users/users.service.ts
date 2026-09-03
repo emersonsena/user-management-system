@@ -74,6 +74,14 @@ export class UsersService {
       }
     }
 
+    if (!updateUserDto.password || updateUserDto.password.trim() === '') {
+      // Se a senha veio vazia, removemos ela do DTO para o merge não sobrescrever a senha atual
+      delete updateUserDto.password;
+    } else {
+      // Se o usuário digitou uma nova senha, geramos o hash do bcrypt
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
+
     const updatedUser = this.userRepository.merge(user, updateUserDto);
     return await this.userRepository.save(updatedUser);
   }

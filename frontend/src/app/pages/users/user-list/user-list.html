@@ -19,32 +19,31 @@
 
     <!-- Tabela de Usuários ou Mensagem Vazia -->
     <div class="users-container">
-        <div *ngIf="paginatedUsers.length === 0" class="empty-state">
+        <div *ngIf="paginatedUsers().length === 0" class="empty-state">
             <h3>Nenhum Usuário Registrado</h3>
             <p>Clique em "Cadastrar Usuário" para começar a cadastrar.</p>
         </div>
 
-        <div *ngIf="paginatedUsers.length > 0" class="users-table">
+        <div *ngIf="paginatedUsers().length > 0" class="users-table">
             <table>
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Matrícula</th>
-                        <th>Ações</th>
+                        <th class="name-col">Nome</th>
+                        <th class="actions-col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let user of paginatedUsers">
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.registration }}</td>
-                        <td class="actions">
+                    <tr *ngFor="let user of paginatedUsers()">
+                        <td class="name-col">{{ user.name }}</td>
+                        <td class="actions-col">
+                            <button class="btn-icon view" (click)="openViewModal(user.id)" title="Visualizar">
+                                <img src="images/ic_eyes.svg" alt="visualizar" width="16">
+                            </button>
                             <button class="btn-icon edit" (click)="editUser(user)" title="Editar">
-                                ✏️
+                                <img src="images/ic_pen.svg" alt="Editar" width="16">
                             </button>
                             <button class="btn-icon delete" (click)="deleteUser(user.id)" title="Deletar">
-                                🗑️
+                                <img src="images/ic_delete_user.svg" alt="Deletar" width="16">
                             </button>
                         </td>
                     </tr>
@@ -55,7 +54,7 @@
 
     <!-- Paginação -->
     <div class="pagination-footer">
-        <span class="pagination-info">Total de Itens: <strong>{{ filteredUsers.length }}</strong></span>
+        <span class="pagination-info">Total de Itens: <strong>{{ filteredUsers().length }}</strong></span>
 
         <div class="pagination-controls">
             <div class="items-per-page">
@@ -98,4 +97,6 @@
             <span class="page-info">{{ currentPage }} de {{ totalPages }}</span>
         </div>
     </div>
+    <app-user-view *ngIf="selectedUserId" [userId]="selectedUserId" (closeDrawer)="selectedUserId = null">
+    </app-user-view>
 </div>

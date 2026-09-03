@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth';
 import { UserService } from './../../../core/services/user';
+import { UserViewComponent } from '../user-view/user-view';
 
 interface User {
   id: number;
@@ -15,26 +16,25 @@ interface User {
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, UserViewComponent],
   templateUrl: './user-list.html',
   styleUrls: ['./user-list.scss']
 })
+
 export class UserListComponent implements OnInit {
-  // Usuário logado
   userName: string = '';
   userInitials: string = '';
   userEmail: string = '';
 
+  users = signal<User[]>([]);
+  filteredUsers = signal<User[]>([]);
+  paginatedUsers = signal<User[]>([]);
+  isLoading = signal<boolean>(false);
+  errorMessage = signal<string | null>(null);
 
-  // Usuários
-  users: User[] = [];
-  filteredUsers: User[] = [];
-  paginatedUsers: User[] = [];
+  selectedUserId: number | null = null;
 
-  // Pesquisa
   searchTerm: string = '';
-
-  // Paginação
   currentPage: number = 1;
   itemsPerPage: number = 15;
   totalPages: number = 1;
@@ -69,25 +69,22 @@ export class UserListComponent implements OnInit {
   }
 
   private loadUsers(): void {
-    // Assumindo que você tenha instanciado: isLoading = signal<boolean>(false);
-    // e errorMessage = signal<string | null>(null); na sua classe
-
-    // this.isLoading.set(true);
-    // this.errorMessage.set(null);
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
 
     this.userService.getUsers().subscribe({
       next: (response: any) => {
-        this.users = response.data || [];
+        this.users.set(response.data || []);
         this.currentPage = response.meta?.currentPage || 1;
         this.itemsPerPage = response.meta?.itemsPerPage || 15;
         this.totalPages = response.meta?.totalPages || 1;
 
         this.applyFiltersAndPagination();
-        // this.isLoading.set(false);
+        this.isLoading.set(false);
       },
       error: (err) => {
-        //  this.isLoading.set(false);
-        //  this.errorMessage.set('Não foi possível carregar a lista de usuários.');
+        this.isLoading.set(false);
+        this.errorMessage.set('Não foi possível carregar a lista de usuários.');
         console.error('Falha ao buscar usuários:', err);
       }
     });
@@ -99,24 +96,23 @@ export class UserListComponent implements OnInit {
   }
 
   private applyFiltersAndPagination(): void {
-    // Filtrar por termo de pesquisa
-    this.filteredUsers = this.users.filter(user =>
-      user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+    const term = this.searchTerm.toLowerCase();
+    const filtered = this.users().filter(user =>
+      user.name.toLowerCase().includes(term) ||
+      user.email.toLowerCase().includes(term) ||
       user.registration.includes(this.searchTerm)
     );
+    this.filteredUsers.set(filtered);
 
-    // Calcular total de páginas
-    this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage) || 1;
+    this.totalPages = Math.ceil(filtered.length / this.itemsPerPage) || 1;
 
-    // Aplicar paginação
     this.updatePaginatedUsers();
   }
 
   private updatePaginatedUsers(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
+    this.paginatedUsers.set(this.filteredUsers().slice(startIndex, endIndex));
   }
 
   onPaginationChange(): void {
@@ -178,12 +174,14 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(userId: number): void {
-    // TODO: Chamar UserService para deletar usuário
     if (confirm('Deseja realmente deletar este usuário?')) {
       console.log('Deletar usuário:', userId);
-      this.users = this.users.filter(u => u.id !== userId);
+      this.users.set(this.users().filter(u => u.id !== userId));
       this.applyFiltersAndPagination();
     }
   }
 
+  openViewModal(id: number): void {
+    this.selectedUserId = id;
+  }
 }

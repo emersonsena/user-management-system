@@ -103,48 +103,60 @@
 
     .users-table {
         width: 100%;
-        overflow-x: auto;
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
         table {
             width: 100%;
             border-collapse: collapse;
+            border-spacing: 0;
 
-            thead {
-                background-color: var(--unnamed-color-0d1931);
+            th,
+            td {
+                padding: 14px 24px;
+                text-align: left;
+                border-bottom: 1px solid #eaeaea;
+            }
 
-                th {
-                    text-align: left;
-                    padding: 0.9rem 1.5rem;
-                    color: var(--full-branco-ffffff);
-                    font-size: var(--unnamed-font-size-14);
-                    font-weight: var(--unnamed-font-weight-medium);
+            /* CABEÇALHO ESCURO EXATO DA SUA IMAGEM */
+            th {
+                background-color: #131b2e; // Cor escura idêntica à do print
+                color: #ffffff; // Texto em branco
+                font-weight: 600;
+                font-size: 0.9rem;
+                letter-spacing: 0.3px;
+            }
+
+            .name-col {
+                width: 85%;
+                font-weight: 500;
+            }
+
+            .actions-col {
+                width: 15%;
+                text-align: right;
+                white-space: nowrap;
+
+                .btn-icon {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 1.1rem;
+                    padding: 6px;
+                    margin-left: 6px;
+                    border-radius: 4px;
+                    transition: background 0.2s;
+
+                    &:hover {
+                        background: #f0f0f0;
+                    }
                 }
             }
 
-            tbody {
-                tr {
-                    border-bottom: 1px solid #f0f0f0;
-                    transition: background-color 0.2s ease;
-
-                    &:hover {
-                        background-color: #f9fafb;
-                    }
-
-                    &:last-child {
-                        border-bottom: none;
-                    }
-                }
-
-                td {
-                    padding: 0.9rem 1.5rem;
-                    font-size: var(--unnamed-font-size-14);
-                    color: var(--verde-escuro-3-0b2b25);
-
-                    &.actions {
-                        display: flex;
-                        gap: 0.5rem;
-                    }
-                }
+            tr:last-child td {
+                border-bottom: none;
             }
         }
     }
@@ -271,5 +283,39 @@
             font-size: var(--unnamed-font-size-14);
             color: var(--cinza-6f7d7d);
         }
+    }
+}
+
+
+/* Toast de Erro Flutuante */
+.toast-error {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--alertas-red-ligh-ff4b4a);
+    color: var(--full-branco-ffffff);
+    padding: 0.85rem 1.25rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+
+    .toast-content {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: var(--unnamed-font-size-14);
+        font-weight: var(--unnamed-font-weight-bold);
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: var(--full-branco-ffffff);
+        font-size: 1rem;
+        cursor: pointer;
     }
 }

@@ -26,7 +26,7 @@
                     <span class="arrow" [class.open]="isAccessMenuOpen">▾</span>
                 </div>
 
-                <div class="nav-subitems" *ngIf="isAccessMenuOpen">
+                <div class="nav-subitems" *ngIf="isAccessMenuOpen && !isSidebarCollapsed">
                     <a routerLink="/app/users" routerLinkActive="active" class="nav-subitem" title="Usuários">
                         <img src="images/ic_user_menu.svg" alt="Usuários" class="subnav-icon">
                         <span class="nav-label">Usuários</span>

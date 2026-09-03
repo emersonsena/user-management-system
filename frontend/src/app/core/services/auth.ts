@@ -31,6 +31,10 @@ export class AuthService {
                 if (res?.token) {
                     localStorage.setItem('token', res.token);
                 }
+
+                if (res?.user) {
+                    localStorage.setItem('user', JSON.stringify(res.user));
+                }
             })
         );
     }
@@ -46,7 +50,13 @@ export class AuthService {
         return !!localStorage.getItem('token');
     }
 
+    getCurrentUser(): any {
+        const userJson = localStorage.getItem('user');
+        return userJson ? JSON.parse(userJson) : null;
+    }
+
     logout(): void {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
     }
 }

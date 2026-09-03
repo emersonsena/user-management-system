@@ -184,7 +184,8 @@ $input-bg: #f4f5f7;
             }
 
             &:not(:disabled):hover {
-                background: darken($primary-color, 10%);
+                // Substitua o darken por mix com preto (escurece 10%)
+                background: mix(black, $primary-color, 10%);
             }
         }
     }

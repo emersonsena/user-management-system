@@ -11,9 +11,13 @@
         {{ isEditMode() ? 'Editar Usuário' : 'Cadastro de Usuário' }}
     </h1>
 
-    <!-- Exibição de Erro da API -->
-    <div class="alert alert-danger" *ngIf="errorMessage()">
-        {{ errorMessage() }}
+    <!-- Toast de Erro (Canto Superior Direito) -->
+    <div *ngIf="errorMessage()" class="toast-error">
+        <div class="toast-content">
+            <span class="icon">⚠️</span>
+            <span class="message">{{ errorMessage() }}</span>
+        </div>
+        <button type="button" class="close-btn" (click)="errorMessage.set(null)">✕</button>
     </div>
 
     <!-- Formulário -->

@@ -90,7 +90,9 @@ export class UserFormComponent implements OnInit {
         this.userForm.patchValue({
           name: user.name,
           email: user.email,
-          registration: user.registration
+          registration: user.registration,
+          password: '',          // <-- Força a senha a vir vazia
+          confirmPassword: ''
         });
       },
       error: (err) => {
@@ -123,7 +125,7 @@ export class UserFormComponent implements OnInit {
     delete formData.confirmPassword;
 
     // Se estiver editando e a senha ficou vazia, remove a propriedade do payload
-    if (this.isEditMode() && !formData.password) {
+    if (this.isEditMode() && (!formData.password || formData.password.trim() === '')) {
       delete formData.password;
     }
 
@@ -131,7 +133,7 @@ export class UserFormComponent implements OnInit {
       this.userService.updateUser(this.userId()!, formData).subscribe({
         next: () => {
           this.isLoading.set(false);
-          this.router.navigate(['/users']);
+          this.router.navigate(['/app/users']);
         },
         error: (err) => {
           this.isLoading.set(false);

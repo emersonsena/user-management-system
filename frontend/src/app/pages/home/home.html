@@ -2,7 +2,7 @@
     <h2 class="page-title">Home</h2>
 
     <div class="welcome-card">
-        <h3 class="greeting">Olá {{ userName }}!</h3>
+        <h3 class="greeting">Olá {{ userName | primeiroNome }}!</h3>
         <p class="date-text">{{ currentDate }}</p>
 
         <div class="illustration-wrapper">
